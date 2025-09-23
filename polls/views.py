@@ -10,7 +10,11 @@ def index(request):
 
 
 def detail(request, question_id):
-    return HttpResponse("You're looking at question %s." % question_id)
+    context = {
+        "question": Question.objects.get(pk=question_id),
+        "error_message": "",
+    }
+    return render(request, "polls/detail.html", context)
 
 
 def results(request, question_id):
