@@ -7,7 +7,7 @@ from .models import Choice, Question
 
 
 def index(request):
-    latest = Question.objects.order_by("-pub_date")[:5]
+    latest = Question.objects.order_by("-pub_date")[:5]  # should be in models
     context = {"latest_question_list": latest}
     return render(request, "polls/index.html", context)
 
