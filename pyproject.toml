@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = ["django>=5.2.6"]
+dependencies = ["django>=5.2.6", "ruff>=0.13.2"]
+
+[tool.ruff.lint]
+select = ["ARG", "N", "E", "D", "PLW0603", "SIM", "B", "F"]
+ignore = ["D100", "D211", "D213", "D203", "ANN204", "D105", "D107", "D101"]
+exclude = ["*/migrations/*"]
 
 [tool.pyright]
 venvPath = "."
