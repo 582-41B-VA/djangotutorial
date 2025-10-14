@@ -1,4 +1,5 @@
 from django.db import models
+from .validators import bad_keywords_validator
 
 
 class Post(models.Model):
@@ -14,7 +15,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     name = models.CharField()
     email = models.EmailField()
-    body = models.TextField()
+    body = models.TextField(validators=[bad_keywords_validator])
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
