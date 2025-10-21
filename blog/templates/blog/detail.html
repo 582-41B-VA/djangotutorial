@@ -1,26 +1,31 @@
-<h1>{{ post.title }}</h1>
-<p>{{ post.body }}</p>
-<section>
-    <h2>Comments</h2>
-    <form action="{% url 'blog:create_comment' post.id %}" method="post">
-        {% csrf_token %} {{ form }}
-        <button>Submit</button>
-        <button formaction="{% url 'blog:create_draft_comment' post.id %}">
-            Save draft
-        </button>
-    </form>
-    {% if comments %}
-    <ul>
-        {% for comment in comments %}
-        <li>
-            <article>
-                <p>{{ comment.body }}</p>
-                <p>{{ comment.author }}</p>
-            </article>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No comments yet.</p>
-    {% endif %}
-</section>
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.body }}</p>
+    <section>
+        <h2>Comments</h2>
+        <form action="{% url 'blog:create_comment' post.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button>Submit</button>
+            <button formaction="{% url 'blog:create_draft_comment' post.id %}">
+                Save draft
+            </button>
+        </form>
+        {% if comments %}
+            <ul>
+                {% for comment in comments %}
+                    <li>
+                        <article>
+                            <p>{{ comment.body }}</p>
+                            <p>{{ comment.author }}</p>
+                        </article>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No comments yet.</p>
+        {% endif %}
+    </section>
+{% endblock %}

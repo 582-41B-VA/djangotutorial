@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
+from django.contrib import messages
 
 from .forms import CommentForm
 from .models import Post
@@ -58,4 +59,5 @@ def create_draft_comment(request, post_id):
         request.POST["email"],
         request.POST["body"],
     )
+    messages.success(request, "Your draft was saved.")
     return HttpResponseRedirect(reverse("blog:detail", args=(post_id,)))
