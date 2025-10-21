@@ -56,10 +56,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "mysite.urls"
 
+PROJECT_PACKAGE = Path(__file__).resolve().parent
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        # Add "templates" from project package.
+        # See https://github.com/django/djangoproject.com/blob/cdae6820237c55961d1a0b872f20b87020b8b508/djangoproject/settings/common.py#L199
+        "DIRS": [str(PROJECT_PACKAGE.joinpath("templates"))],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
