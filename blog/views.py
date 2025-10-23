@@ -12,6 +12,10 @@ def index(request):
     return render(request, "blog/index.html", {"posts": Post.objects.all()})
 
 
+def draft_comments(request):
+    return render(request, "blog/draft_comments.html")
+
+
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     draft_comment = DraftCommentStore(request).get(post_id)

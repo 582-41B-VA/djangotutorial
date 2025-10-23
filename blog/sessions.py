@@ -1,6 +1,8 @@
 from __future__ import annotations
 from dataclasses import dataclass
 
+from .models import Post
+
 
 @dataclass
 class DraftComment:
@@ -12,6 +14,7 @@ class DraftComment:
     name: str
     email: str
     body: str
+    post: Post
 
 
 class DraftCommentStore:
@@ -21,10 +24,10 @@ class DraftCommentStore:
 
     def __init__(self, request):
         self.session = request.session
-        drafts = self.session.get(DraftCommentStore._SESSION_ID)
-        if not drafts:
-            drafts = self.session[DraftCommentStore._SESSION_ID] = {}
-        self.drafts = drafts
+        _drafts = self.session.get(DraftCommentStore._SESSION_ID)
+        if not _drafts:
+            _drafts = self.session[DraftCommentStore._SESSION_ID] = {}
+        self.drafts = _drafts
 
     def add(
         self, post_id: int, name: str, email: str, body: str
@@ -51,7 +54,18 @@ class DraftCommentStore:
         draft = self.drafts.get(str(post_id))
         if not draft:
             return None
-        return DraftComment(draft["name"], draft["email"], draft["body"])
+        post = Post.objects.get(pk=post_id)
+        return DraftComment(draft["name"], draft["email"], draft["body"], post)
+
+    def __len__(self) -> int:
+        return len(self.drafts)
+
+    def __iter__(self):
+        for post_id, draft in self.drafts.items():
+            post = Post.objects.get(pk=post_id)
+            yield DraftComment(
+                draft["name"], draft["email"], draft["body"], post
+            )
 
     def _save(self):
         """Make sure to save the session.

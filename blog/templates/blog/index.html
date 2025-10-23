@@ -1,13 +1,17 @@
-{% if posts %}
-    <ul>
-        {% for post in posts %}
-            <li>
-                <a href="{% url 'blog:detail' post.id %}">
-                    {{ post.title }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No posts yet.</p>
-{% endif %}
+{% extends "base.html" %}
+
+{% block content %}
+    {% if posts %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <a href="{% url 'blog:detail' post.id %}">
+                        {{ post.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
+{% endblock %}

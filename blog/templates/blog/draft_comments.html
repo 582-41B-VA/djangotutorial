@@ -1,0 +1,13 @@
+{% if draft_comments %}
+    <ul>
+        {% for draft in draft_comments %}
+            <li>
+                <p>{{ draft.body|truncatewords:10 }}</p>
+                <p>for {{ draft.post.title }}</p>
+                <a href="{% url 'blog:detail' draft.post.id %}">See</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No draft comments yet.</p>
+{% endif %}

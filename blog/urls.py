@@ -9,6 +9,11 @@ urlpatterns = [
         name="index",
     ),
     path(
+        "draft-comments/",
+        views.draft_comments,
+        name="draft_comments",
+    ),
+    path(
         "<int:post_id>/",
         views.detail,
         name="detail",
