@@ -1,0 +1,7 @@
+{% for sub in subscriptions %}
+    <p>
+        <a href="{% url 'subscriptions:create_checkout_session' sub.id %}"
+        >Buy</a>
+        {{ sub.name }}
+    </p>
+{% endfor %}
