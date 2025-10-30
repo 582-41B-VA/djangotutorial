@@ -1,11 +1,7 @@
-import os
-
 import stripe
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 
-from .models import Subscription
-
-stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
+from .models import Subscription, Order
 
 
 def index(request):
@@ -18,7 +14,10 @@ def index(request):
 
 def create_checkout_session(request, sub_id):
     sub = get_object_or_404(Subscription, pk=sub_id)
+    order = Order(subscription=sub)
+    order.save()
     checkout_session = stripe.checkout.Session.create(
+        client_reference_id=order.id,
         # Schema: https://docs.stripe.com/api/checkout/sessions/create#create_checkout_session-line_items
         line_items=[
             {
