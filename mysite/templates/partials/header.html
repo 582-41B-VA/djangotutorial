@@ -11,4 +11,7 @@
             {% endfor %}
         </ul>
     {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'accounts:logout' %}">Logout</a>
+    {% endif %}
 </header>

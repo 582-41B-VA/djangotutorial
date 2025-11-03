@@ -8,6 +8,8 @@ load_dotenv()
 
 stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
+LOGIN_URL = "accounts:login"
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -30,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "blog.apps.BlogConfig",
+    "accounts.apps.AccountsConfig",
     "contact.apps.ContactConfig",
     "subscriptions.apps.SubscriptionsConfig",
     "polls.apps.PollsConfig",
