@@ -15,6 +15,8 @@ def index(request):
 def create_checkout_session(request, sub_id):
     sub = get_object_or_404(Subscription, pk=sub_id)
     order = Order(subscription=sub)
+    if request.user.is_authenticated:
+        order.account = request.user
     order.save()
     checkout_session = stripe.checkout.Session.create(
         client_reference_id=order.id,

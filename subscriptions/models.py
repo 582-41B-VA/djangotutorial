@@ -1,6 +1,8 @@
 from typing_extensions import Required
 from django.db import models
 
+from django.contrib.auth import get_user_model
+
 
 class Subscription(models.Model):
     name = models.CharField()
@@ -15,6 +17,9 @@ class Order(models.Model):
     email = models.EmailField(blank=True, null=True)
     subscription = models.ForeignKey(Subscription, on_delete=models.CASCADE)
     payment_id = models.CharField(blank=True)
+    account = models.ForeignKey(
+        get_user_model(), on_delete=models.CASCADE, blank=True, null=True
+    )
 
     def fulfill(self, name: str, email: str, payment_id: str) -> None:
         self.name = name
