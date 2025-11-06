@@ -2,16 +2,17 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login as django_login, logout as django_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from .forms import AccountCreationForm
 
 
 def register(request):
     return render(
-        request, "accounts/register.html", {"form": UserCreationForm()}
+        request, "accounts/register.html", {"form": AccountCreationForm()}
     )
 
 
 def register_submit(request):
-    form = UserCreationForm(request.POST)
+    form = AccountCreationForm(request.POST)
     if not form.is_valid():
         return render(request, "accounts/register.html", {"form": form})
     form.save()

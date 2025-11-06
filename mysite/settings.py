@@ -9,6 +9,7 @@ load_dotenv()
 stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
 LOGIN_URL = "accounts:login"
+AUTH_USER_MODEL = "accounts.Account"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
