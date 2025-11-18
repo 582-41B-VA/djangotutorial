@@ -1,16 +1,17 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
     <h1>{{ post.title }}</h1>
     <p>{{ post.body }}</p>
     <section>
-        <h2>Comments</h2>
+        <h2>{% translate "Comments" %}</h2>
         <form action="{% url 'blog:create_comment' post.id %}" method="post">
             {% csrf_token %}
             {{ form }}
-            <button>Submit</button>
+            <button>{% translate "Submit" %}</button>
             <button formaction="{% url 'blog:create_draft_comment' post.id %}">
-                Save draft
+                {% translate "Save draft" %}
             </button>
         </form>
         {% if comments %}
@@ -25,7 +26,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>No comments yet.</p>
+            <p>{% translate "No comments yet." %}</p>
         {% endif %}
     </section>
 {% endblock %}
